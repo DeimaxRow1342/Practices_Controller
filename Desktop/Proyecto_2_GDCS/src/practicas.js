@@ -72,10 +72,9 @@ class Practicas{
 
     if (numeroCommits > 0 && numeroCommits === this.contarPruebas()) {
       return "el numero de pruebas agregadas fue agregada de buena manera, buen trabajo!";
-    }else if (numeroCommits > 0 && numeroCommits !== this.contarPruebas()) {
+    } else if (numeroCommits > 0 && numeroCommits !== this.contarPruebas()) {
       return "el numero de pruebas agregadas fue implementada de muy mala forma, ten cuidado!";
     }
-
   }
 
   generarRanking() {
@@ -88,7 +87,7 @@ class Practicas{
     const ranking = this.generarRanking();
     return ranking.findIndex((item) => item.nombre === this.nombre) + 1;
   }
-  
+
   detallePuntuacion() {
     const metricas = this.motrarMetricas();
     return {

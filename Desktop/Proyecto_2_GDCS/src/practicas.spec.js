@@ -179,3 +179,35 @@ describe('Pruebas para la función contarPruebas()', () => {
       expect(practica.contarPruebas()).toBe(3);
     });
   });
+
+  describe('Pruebas para la función obtenerRecomendacion()', () => {
+    let practica;
+    
+    beforeEach(() => {
+      practica = new Practicas();
+      practica.ModuloMetricas.desplegarMetrica = jest.fn(); // Mockear el método de mostrarMetricas
+    });
+  
+    test('Debe devolver "no existen commits" cuando no hay commits', () => {
+      practica.ModuloMetricas.desplegarMetrica.mockReturnValue([]);
+      expect(practica.obtenerRecomendacion()).toBe("no existen commits");
+    });
+  
+    test('Debe devolver mensaje positivo cuando el número de commits es igual al de pruebas', () => {
+      practica.ModuloMetricas.desplegarMetrica.mockReturnValue([1, 2, 3]);
+      practica.pruebas = ["Prueba 1", "Prueba 2", "Prueba 3"];
+      expect(practica.obtenerRecomendacion()).toBe("el numero de pruebas agregadas fue agregada de buena manera, buen trabajo!");
+    });
+  
+    test('Debe devolver mensaje negativo cuando el número de commits es diferente al de pruebas', () => {
+      practica.ModuloMetricas.desplegarMetrica.mockReturnValue([1, 2, 3, 4]);
+      practica.pruebas = ["Prueba 1", "Prueba 2"];
+      expect(practica.obtenerRecomendacion()).toBe("el numero de pruebas agregadas fue implementada de muy mala forma, ten cuidado!");
+    });
+  
+    test('Debe manejar el caso límite cuando hay un commit y una prueba (sin coincidencias exactas)', () => {
+      practica.ModuloMetricas.desplegarMetrica.mockReturnValue([1]);
+      practica.pruebas = ["Prueba 1"];
+      expect(practica.obtenerRecomendacion()).toBe("el numero de pruebas agregadas fue agregada de buena manera, buen trabajo!"); 
+    });
+  });
