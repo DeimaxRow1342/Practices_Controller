@@ -145,3 +145,23 @@ describe('Pruebas para la función editarDatos', () => {
       expect(practica.tipo).toBe(nuevoTipo);
     });
   });
+
+  describe('Pruebas para la función eliminarMetrica()', () => {
+    let practica;
+    let moduloMetricas;
+
+    beforeEach(() => {
+        practica = new Practicas();
+        moduloMetricas = new ModuloMetricas();
+        practica.ModuloMetricas = moduloMetricas; 
+    });
+
+    test('debería eliminar una métrica dado un numeroCommit válido', () => {
+        const numeroCommit = 1; 
+        const eliminarSpy = jest.spyOn(moduloMetricas, 'eliminarMetricaCommit');
+
+        practica.eliminarMetrica(numeroCommit);
+
+        expect(eliminarSpy).toHaveBeenCalledWith(numeroCommit);
+    });
+});
