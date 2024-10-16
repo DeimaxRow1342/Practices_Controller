@@ -105,6 +105,8 @@ class Practicas{
         }))
     };
   }
+
+
 }
 
 export default Practicas;

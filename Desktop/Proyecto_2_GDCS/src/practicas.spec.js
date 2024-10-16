@@ -211,3 +211,65 @@ describe('Pruebas para la función contarPruebas()', () => {
       expect(practica.obtenerRecomendacion()).toBe("el numero de pruebas agregadas fue agregada de buena manera, buen trabajo!"); 
     });
   });
+
+  describe('Pruebas para la función generarRanking()', () => {
+    let practica;
+  
+    beforeEach(() => {
+      practica = new Practicas();
+      practica.ModuloMetricas = {
+        desplegarMetrica: jest.fn(),
+      };
+    });
+  
+    test('Debería calcular el ranking correctamente', () => {
+      practica.nombre = "Practica 1";
+      practica.ModuloMetricas.desplegarMetrica.mockReturnValue([{ puntaje: 10 }, { puntaje: 20 }]);
+      
+      const ranking1 = practica.generarRanking();
+      expect(ranking1).toEqual([{ nombre: "Practica 1", puntaje: 30 }]);
+      
+      practica.nombre = "Practica 2";
+      practica.ModuloMetricas.desplegarMetrica.mockReturnValue([{ puntaje: 5 }, { puntaje: 15 }]);
+  
+      const ranking2 = practica.generarRanking();
+      expect(ranking2).toEqual([{ nombre: "Practica 2", puntaje: 20 }]);
+    });
+  });
+
+  describe('Pruebas para la función obtenerPosicionEnRanking()', () => {
+    let practicaKATA;
+    let practicaOtra;
+  
+    beforeEach(() => {
+      practicaKATA = new Practicas();
+      practicaKATA.cargarDatos("KATA", "Descripción KATA", "2024-10-16", "http://ejemplo.com/kata");
+      practicaKATA.ModuloMetricas.anadirMetricaCommit(1, "Prueba 1", [], 100, 10, 5, "tipo", "frecuencia");
+  
+      practicaOtra = new Practicas();
+      practicaOtra.cargarDatos("OtraPráctica", "Descripción Otra", "2024-10-16", "http://ejemplo.com/otra");
+      practicaOtra.ModuloMetricas.anadirMetricaCommit(2, "Prueba 2", [], 80, 5, 3, "tipo", "frecuencia");
+    });
+  
+    test('Debe retornar la posición de KATA en el ranking', () => {
+      const ranking = [practicaKATA.generarRanking()[0], practicaOtra.generarRanking()[0]];
+      expect(practicaKATA.obtenerPosicionEnRanking()).toBe(1); 
+    });
+  });
+
+  
+describe('Pruebas para la función detallePuntuacion()', () => {
+  test('debería proporcionar un panel detallado de puntuación', () => {
+    const practicas = new Practicas();
+    practicas.cargarDatos("Ejercicio1", "Descripción1", "2024-01-01", "http://link1.com");
+    practicas.anadirMetrica(1, "Commit1", 10, 25, 25, "Bueno", "convencional");
+    const panel = practicas.detallePuntuacion();
+
+    expect(panel).toEqual({
+        nombre: "Ejercicio1",
+        metricas: [
+            { numeroCommit: 1, pruebas: 10, cobertura: 25, cantidadLineas: 25, explicacion: "Commit1", complejidad: "Bueno", tipo: "convencional", puntaje: 40}
+        ]
+        });
+    })
+});
