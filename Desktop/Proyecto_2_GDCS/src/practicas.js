@@ -46,6 +46,7 @@ class Practicas{
         this.tipo = null;
     }
   }
+  
   editarDatos(nuevoNombre, nuevaDescripcion, nuevaFecha, nuevoEnlace, nuevoTipo){
     this.nombre = nuevoNombre;
     this.descripcion = nuevaDescripcion;

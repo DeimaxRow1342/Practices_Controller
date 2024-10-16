@@ -1,4 +1,5 @@
 import Practicas from "./practicas.js";
+import ModuloMetricas from './moduloMetricas';
 
 describe("Test para cargarDatos()", () => {
   it("Debe asignar correctamente los valores de nombre, descripcion, fecha y enlace", () => {
@@ -68,4 +69,24 @@ describe("Pruebas para la función obtenerPractica(nombre)", () => {
   
   });
 
+  describe('Pruebas para motrarMetricas()', () => {
   
+    let practicas;
+    let moduloMetricasMock;
+  
+    beforeEach(() => {
+      moduloMetricasMock = new ModuloMetricas();
+      practicas = new Practicas();
+      practicas.ModuloMetricas = moduloMetricasMock;
+    });
+  
+    test('Debe llamar a desplegarMetrica() y devolver sus resultados', () => {
+      const metricasEsperadas = [{ numeroCommit: 1, pruebas: 'Pruebas' }];
+      jest.spyOn(moduloMetricasMock, 'desplegarMetrica').mockReturnValue(metricasEsperadas);
+  
+      const resultado = practicas.motrarMetricas();
+  
+      expect(resultado).toEqual(metricasEsperadas);
+      expect(moduloMetricasMock.desplegarMetrica).toHaveBeenCalled();
+    });
+  });
