@@ -17,10 +17,18 @@ describe("Test para getPuntaje()", () => {
     });
   });
 
-  describe("Test para getExplicacion()", () => {
+describe("Test para getExplicacion()", () => {
     it("Debe retornar la explicacion de la metrica", () => {
       let metrica = new Metrica(1, "Este commit esta incompleto");
   
       expect(metrica.getExplicacion()).toEqual("Este commit esta incompleto");
+    });
+  });
+  
+describe("Test para getFrecuencia()", () => {
+  it("Debe retornar la frecuencia inicializada de la metrica", () => {
+      let metrica = new Metrica(1);
+  
+      expect(metrica.getFrecuencia()).toEqual(null);
     });
   });
