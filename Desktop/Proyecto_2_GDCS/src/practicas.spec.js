@@ -185,7 +185,7 @@ describe('Pruebas para la función contarPruebas()', () => {
     
     beforeEach(() => {
       practica = new Practicas();
-      practica.ModuloMetricas.desplegarMetrica = jest.fn(); 
+      practica.ModuloMetricas.desplegarMetrica = jest.fn(); // Mockear el método de mostrarMetricas
     });
   
     test('Debe devolver "no existen commits" cuando no hay commits', () => {
@@ -256,3 +256,20 @@ describe('Pruebas para la función contarPruebas()', () => {
       expect(practicaKATA.obtenerPosicionEnRanking()).toBe(1); 
     });
   });
+
+  
+describe('Pruebas para la función detallePuntuacion()', () => {
+  test('debería proporcionar un panel detallado de puntuación', () => {
+    const practicas = new Practicas();
+    practicas.cargarDatos("Ejercicio1", "Descripción1", "2024-01-01", "http://link1.com");
+    practicas.anadirMetrica(1, "Commit1", 10, 25, 25, "Bueno", "convencional");
+    const panel = practicas.detallePuntuacion();
+
+    expect(panel).toEqual({
+        nombre: "Ejercicio1",
+        metricas: [
+            { numeroCommit: 1, pruebas: 10, cobertura: 25, cantidadLineas: 25, explicacion: "Commit1", complejidad: "Bueno", tipo: "convencional", puntaje: 40}
+        ]
+        });
+    })
+});
