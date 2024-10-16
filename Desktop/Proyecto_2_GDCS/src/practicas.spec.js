@@ -185,7 +185,7 @@ describe('Pruebas para la función contarPruebas()', () => {
     
     beforeEach(() => {
       practica = new Practicas();
-      practica.ModuloMetricas.desplegarMetrica = jest.fn(); // Mockear el método de mostrarMetricas
+      practica.ModuloMetricas.desplegarMetrica = jest.fn(); 
     });
   
     test('Debe devolver "no existen commits" cuando no hay commits', () => {
@@ -211,3 +211,30 @@ describe('Pruebas para la función contarPruebas()', () => {
       expect(practica.obtenerRecomendacion()).toBe("el numero de pruebas agregadas fue agregada de buena manera, buen trabajo!"); 
     });
   });
+
+  describe('Pruebas para la función generarRanking()', () => {
+    let practica;
+  
+    beforeEach(() => {
+      practica = new Practicas();
+      practica.ModuloMetricas = {
+        desplegarMetrica: jest.fn(),
+      };
+    });
+  
+    test('Debería calcular el ranking correctamente', () => {
+      practica.nombre = "Practica 1";
+      practica.ModuloMetricas.desplegarMetrica.mockReturnValue([{ puntaje: 10 }, { puntaje: 20 }]);
+      
+      const ranking1 = practica.generarRanking();
+      expect(ranking1).toEqual([{ nombre: "Practica 1", puntaje: 30 }]);
+      
+      practica.nombre = "Practica 2";
+      practica.ModuloMetricas.desplegarMetrica.mockReturnValue([{ puntaje: 5 }, { puntaje: 15 }]);
+  
+      const ranking2 = practica.generarRanking();
+      expect(ranking2).toEqual([{ nombre: "Practica 2", puntaje: 20 }]);
+    });
+  });
+
+  
