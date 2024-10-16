@@ -90,3 +90,32 @@ describe("Pruebas para la función obtenerPractica(nombre)", () => {
       expect(moduloMetricasMock.desplegarMetrica).toHaveBeenCalled();
     });
   });
+
+  describe('Pruebas para la función eliminarDatos()', () => {
+    let practica;
+
+    beforeEach(() => {
+        practica = new Practicas();
+        practica.cargarDatos("Practica1", "Descripción de la práctica", "2024-10-16", "http://enlace.com");
+    });
+
+    test('Debería eliminar los datos correctamente cuando el nombre coincide', () => {
+        practica.eliminarDatos("Practica1");
+
+        expect(practica.nombre).toBeNull();
+        expect(practica.descripcion).toBeNull();
+        expect(practica.fecha).toBeNull();
+        expect(practica.enlace).toBeNull();
+        expect(practica.tipo).toBeNull(); 
+    });
+
+    test('No debería eliminar los datos cuando el nombre no coincide', () => {
+        practica.eliminarDatos("Practica2");
+
+        expect(practica.nombre).toBe("Practica1");
+        expect(practica.descripcion).toBe("Descripción de la práctica");
+        expect(practica.fecha).toBe("2024-10-16");
+        expect(practica.enlace).toBe("http://enlace.com");
+        expect(practica.tipo).toBeUndefined(); 
+    });
+}); 
