@@ -237,4 +237,22 @@ describe('Pruebas para la función contarPruebas()', () => {
     });
   });
 
+  describe('Pruebas para la función obtenerPosicionEnRanking()', () => {
+    let practicaKATA;
+    let practicaOtra;
   
+    beforeEach(() => {
+      practicaKATA = new Practicas();
+      practicaKATA.cargarDatos("KATA", "Descripción KATA", "2024-10-16", "http://ejemplo.com/kata");
+      practicaKATA.ModuloMetricas.anadirMetricaCommit(1, "Prueba 1", [], 100, 10, 5, "tipo", "frecuencia");
+  
+      practicaOtra = new Practicas();
+      practicaOtra.cargarDatos("OtraPráctica", "Descripción Otra", "2024-10-16", "http://ejemplo.com/otra");
+      practicaOtra.ModuloMetricas.anadirMetricaCommit(2, "Prueba 2", [], 80, 5, 3, "tipo", "frecuencia");
+    });
+  
+    test('Debe retornar la posición de KATA en el ranking', () => {
+      const ranking = [practicaKATA.generarRanking()[0], practicaOtra.generarRanking()[0]];
+      expect(practicaKATA.obtenerPosicionEnRanking()).toBe(1); 
+    });
+  });
