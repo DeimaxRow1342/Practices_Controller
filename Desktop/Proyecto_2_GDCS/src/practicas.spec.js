@@ -119,3 +119,29 @@ describe("Pruebas para la función obtenerPractica(nombre)", () => {
         expect(practica.tipo).toBeUndefined(); 
     });
 }); 
+
+
+describe('Pruebas para la función editarDatos', () => {
+    let practica;
+  
+    beforeEach(() => {
+      practica = new Practicas();
+      practica.cargarDatos("Practica Inicial", "Descripción Inicial", "2024-10-15", "http://inicial.com");
+    });
+  
+    test('debería editar los datos correctamente', () => {
+      const nuevoNombre = "Practica1";
+      const nuevaDescripcion = "Nueva Descripción";
+      const nuevaFecha = "2024-10-17";
+      const nuevoEnlace = "http://nuevoenlace.com";
+      const nuevoTipo = "Nuevo Tipo";
+      
+      practica.editarDatos(nuevoNombre, nuevaDescripcion, nuevaFecha, nuevoEnlace, nuevoTipo);
+  
+      expect(practica.nombre).toBe(nuevoNombre);
+      expect(practica.descripcion).toBe(nuevaDescripcion);
+      expect(practica.fecha).toBe(nuevaFecha);
+      expect(practica.enlace).toBe(nuevoEnlace);
+      expect(practica.tipo).toBe(nuevoTipo);
+    });
+  });
