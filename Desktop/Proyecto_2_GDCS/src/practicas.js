@@ -46,7 +46,7 @@ class Practicas{
         this.tipo = null;
     }
   }
-  
+
   editarDatos(nuevoNombre, nuevaDescripcion, nuevaFecha, nuevoEnlace, nuevoTipo){
     this.nombre = nuevoNombre;
     this.descripcion = nuevaDescripcion;
@@ -62,6 +62,7 @@ class Practicas{
   contarPruebas() {
     return this.pruebas.length;
   }
+
   obtenerRecomendacion() {
     const metricas = this.motrarMetricas();
     const numeroCommits = metricas.length;
@@ -76,15 +77,18 @@ class Practicas{
     }
 
   }
+
   generarRanking() {
     const metricas = this.motrarMetricas();
     const puntajeTotal = metricas.reduce((total, metrica) => total + (metrica.puntaje || 0), 0);
     return [{ nombre: this.nombre, puntaje: puntajeTotal }];
   }
+
   obtenerPosicionEnRanking() {
     const ranking = this.generarRanking();
     return ranking.findIndex((item) => item.nombre === this.nombre) + 1;
   }
+  
   detallePuntuacion() {
     const metricas = this.motrarMetricas();
     return {

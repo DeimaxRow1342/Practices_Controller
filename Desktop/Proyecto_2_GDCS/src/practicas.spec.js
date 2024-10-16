@@ -165,3 +165,17 @@ describe('Pruebas para la función editarDatos', () => {
         expect(eliminarSpy).toHaveBeenCalledWith(numeroCommit);
     });
 });
+
+describe('Pruebas para la función contarPruebas()', () => {
+  
+    let practica;
+  
+    beforeEach(() => {
+      practica = new Practicas();
+    });
+  
+    test('Debe devolver el número correcto de pruebas cuando hay múltiples pruebas', () => {
+      practica.pruebas = ['Prueba 1', 'Prueba 2', 'Prueba 3'];
+      expect(practica.contarPruebas()).toBe(3);
+    });
+  });
