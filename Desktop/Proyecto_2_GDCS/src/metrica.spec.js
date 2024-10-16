@@ -32,3 +32,36 @@ describe("Test para getFrecuencia()", () => {
       expect(metrica.getFrecuencia()).toEqual(null);
     });
   });
+
+describe("Test para getTipo()", () => {
+    it("Debe retornar el tipo inicializado en el constructor de la metrica", () => {
+        let metrica = new Metrica(1);
+    
+        expect(metrica.getTipo()).toEqual('convencional');
+    });
+  });
+
+describe("Test para cargarMetricas()", () => {
+    it("Debe registrar las metricas cargadas con la funcion en la variable metrica si es convencional", () => {
+        let metrica = new Metrica(1, "Commit inicializado automaticamente");
+
+        metrica.cargarMetricas(100, 16, 80, "Bueno", 1);
+        expect(metrica.pruebas).toEqual(100);
+        expect(metrica.cantidadLineas).toEqual(16);
+        expect(metrica.cobertura).toEqual(80);
+        expect(metrica.complejidad).toEqual("Bueno");
+        expect(metrica.getFrecuencia()).toEqual(1);
+    });
+
+    it("Debe registrar las metricas con valores null, porque el tipo no es convencional", () => {
+      let metrica = new Metrica(1, "Commit inicializado automaticamente", "Refactorizacion");
+
+      metrica.cargarMetricas(100, 16, 80, "Bueno", 1);
+      expect(metrica.pruebas).toEqual(null);
+      expect(metrica.cantidadLineas).toEqual(null);
+      expect(metrica.cobertura).toEqual(null);
+      expect(metrica.complejidad).toEqual(null);
+      expect(metrica.getFrecuencia()).toEqual(null);
+      expect(metrica.getPuntaje()).toEqual(0);
+    });
+  });
