@@ -114,11 +114,11 @@ class Metrica {
     }
 
     calcularPuntajePorFrecuencia(frecuencia){
-        if(frecuencia <= 2){
+        if(frecuencia >= 0 && frecuencia <= 2){
             return 20;
         } else if(frecuencia == 3){
             return 16;
-        } else if(frecuencia <= 7){ //Commits poco regulares o frecuentes
+        } else if(frecuencia > 3 && frecuencia <= 7){ //Commits poco regulares o frecuentes
             return 12;
         } else if(frecuencia > 7){ //Commits irregulares
             return 8;

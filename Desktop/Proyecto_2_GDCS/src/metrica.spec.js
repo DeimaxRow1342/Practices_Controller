@@ -176,3 +176,40 @@ describe("Tests para calcularPuntajePorComplejidad()", () => {
     expect(metrica.calcularPuntajePorComplejidad(complejidad)).toEqual(0);
   });
 });
+
+describe("Tests para calcularPuntajePorFrecuencia()", () => {
+  it("Debe retornar el puntaje de 20, dado que la frecuencia entre commits sea 1", () => {
+      let metrica = new Metrica(1, "Commit inicializado automaticamente");
+      let frecuencia = 1;
+
+      expect(metrica.calcularPuntajePorFrecuencia(frecuencia)).toEqual(20);
+  });
+
+  it("Debe retornar el puntaje de 16, dado que la frecuencia entre commits sea exactamente 3", () => {
+    let metrica = new Metrica(1, "Commit inicializado automaticamente");
+    let frecuencia = 3;
+
+    expect(metrica.calcularPuntajePorFrecuencia(frecuencia)).toEqual(16);
+  });
+
+  it("Debe retornar el puntaje de 12, dado que la frecuencia entre commits sea 5", () => {
+    let metrica = new Metrica(1, "Commit inicializado automaticamente");
+    let frecuencia = 5;
+
+    expect(metrica.calcularPuntajePorFrecuencia(frecuencia)).toEqual(12);
+  });
+    
+  it("Debe retornar el puntaje de 8, dado que la frecuencia entre commits sea 8", () => {
+    let metrica = new Metrica(1, "Commit inicializado automaticamente");
+    let frecuencia = 8;
+
+    expect(metrica.calcularPuntajePorFrecuencia(frecuencia)).toEqual(8);
+  });
+    
+  it("Debe retornar el puntaje de 0, dado que la frecuencia entre commits este fuere del rango como -1", () => {
+    let metrica = new Metrica(1, "Commit inicializado automaticamente");
+    let frecuencia = -1;
+
+    expect(metrica.calcularPuntajePorFrecuencia(frecuencia)).toEqual(0);
+  });
+});
