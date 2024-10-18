@@ -310,3 +310,14 @@ describe("Tests para calcularPuntajePorFrecuencia()", () => {
     expect(metrica.calcularPuntajePorFrecuencia(frecuencia)).toEqual(0);
   });
 });
+
+describe("Test para contarDias()", () => {
+  it("Debe retornar 4 días entre el 01/10/2024 y el 05/10/2024", () => {
+    let metrica = new Metrica(1, "Commit inicializado automaticamente");
+    
+    const fechaInicio = "01/10/2024";
+    const fechaFin = "05/10/2024";
+
+    expect(metrica.contarDias(fechaInicio, fechaFin)).toEqual(4);
+  });
+});
