@@ -103,6 +103,94 @@ describe("Tests para calcularPuntajePorCantidadLineas()", () => {
   });
 });
 
+describe("Tests para calcularPuntajePorPruebas()", () => {
+  it("Debe retornar el puntaje de 8, dado que el porcentaje de pruebas hasta el commit 4 es del 50%", () => {
+      let metrica1 = new Metrica(1, "Commit inicializado automaticamente");
+      let metrica2 = new Metrica(2, "Commit inicializado automaticamente");
+      let metrica3 = new Metrica(3, "Commit inicializado automaticamente");
+      let metrica4 = new Metrica(4, "Commit inicializado automaticamente");
+
+      metrica1.pruebas = 1;
+      metrica2.pruebas = 0;
+      metrica3.pruebas = 0;
+      metrica4.pruebas = 1;
+
+      let totalPruebas = metrica1.pruebas + metrica2.pruebas + metrica3.pruebas + metrica4.pruebas;
+
+      expect(metrica4.calcularPuntajePorPruebas(totalPruebas)).toEqual(8);
+  });
+
+  it("Debe retornar el puntaje de 12, dado que el porcentaje de pruebas hasta el commit 4 es del 75%", () => {
+    let metrica1 = new Metrica(1, "Commit inicializado automaticamente");
+    let metrica2 = new Metrica(2, "Commit inicializado automaticamente");
+    let metrica3 = new Metrica(3, "Commit inicializado automaticamente");
+    let metrica4 = new Metrica(4, "Commit inicializado automaticamente");
+
+    metrica1.pruebas = 1;
+    metrica2.pruebas = 0;
+    metrica3.pruebas = 1;
+    metrica4.pruebas = 1;
+
+    let totalPruebas = metrica1.pruebas + metrica2.pruebas + metrica3.pruebas + metrica4.pruebas;
+
+    expect(metrica4.calcularPuntajePorPruebas(totalPruebas)).toEqual(12);
+  });
+
+  it("Debe retornar el puntaje de 16, dado que el porcentaje de pruebas hasta el commit 4 es del 80%", () => {
+    let metrica1 = new Metrica(1, "Commit inicializado automaticamente");
+    let metrica2 = new Metrica(2, "Commit inicializado automaticamente");
+    let metrica3 = new Metrica(3, "Commit inicializado automaticamente");
+    let metrica4 = new Metrica(4, "Commit inicializado automaticamente");
+    let metrica5 = new Metrica(5, "Commit inicializado automaticamente");
+
+    metrica1.pruebas = 1;
+    metrica2.pruebas = 0;
+    metrica3.pruebas = 1;
+    metrica4.pruebas = 1;
+    metrica5.pruebas = 1;
+
+    let totalPruebas = metrica1.pruebas + metrica2.pruebas + metrica3.pruebas + metrica4.pruebas + metrica5.pruebas;
+
+    expect(metrica5.calcularPuntajePorPruebas(totalPruebas)).toEqual(16);
+  });
+    
+  it("Debe retornar el puntaje de 20, dado que el porcentaje de pruebas hasta el commit 5 son del 100%", () => {
+      let metrica1 = new Metrica(1, "Commit inicializado automaticamente");
+      let metrica2 = new Metrica(2, "Commit inicializado automaticamente");
+      let metrica3 = new Metrica(3, "Commit inicializado automaticamente");
+      let metrica4 = new Metrica(4, "Commit inicializado automaticamente");
+      let metrica5 = new Metrica(5, "Commit inicializado automaticamente");
+
+      metrica1.pruebas = 1;
+      metrica2.pruebas = 0;
+      metrica3.pruebas = 2;
+      metrica4.pruebas = 1;
+      metrica5.pruebas = 1;
+
+      let totalPruebas = metrica1.pruebas + metrica2.pruebas + metrica3.pruebas + metrica4.pruebas + metrica5.pruebas;
+
+      expect(metrica5.calcularPuntajePorPruebas(totalPruebas)).toEqual(20);
+  });
+    
+  it("Debe retornar el puntaje de 0, dado que el porcentaje de pruebas sea mas de uno por commit hasta el commit 5", () => {
+      let metrica1 = new Metrica(1, "Commit inicializado automaticamente");
+      let metrica2 = new Metrica(2, "Commit inicializado automaticamente");
+      let metrica3 = new Metrica(3, "Commit inicializado automaticamente");
+      let metrica4 = new Metrica(4, "Commit inicializado automaticamente");
+      let metrica5 = new Metrica(5, "Commit inicializado automaticamente");
+
+      metrica1.pruebas = 1;
+      metrica2.pruebas = 1;
+      metrica3.pruebas = 2;
+      metrica4.pruebas = 1;
+      metrica5.pruebas = 1;
+
+      let totalPruebas = metrica1.pruebas + metrica2.pruebas + metrica3.pruebas + metrica4.pruebas + metrica5.pruebas;
+
+      expect(metrica5.calcularPuntajePorPruebas(totalPruebas)).toEqual(0);
+  });
+});
+
 describe("Tests para calcularPuntajePorCobertura()", () => {
   it("Debe retornar el puntaje de 8, dado que el porcentaje de cobertura alcanzada es 50", () => {
       let metrica = new Metrica(1, "Commit inicializado automaticamente");
