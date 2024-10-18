@@ -66,6 +66,15 @@ describe("Tests para cargarMetricas()", () => {
   });
 });
 
+describe("Test para calcularPuntaje()", () => {
+  it("Debe retornar un puntaje total de 76 para el commit, dado los parametros en la funcion", () => {
+    let metrica = new Metrica(1, "Commit inicializado automaticamente");
+
+    expect(metrica.calcularPuntaje(100, 16, 80, "Bueno", 1)).toEqual(76);
+  });
+
+});
+
 describe("Tests para calcularPuntajePorCantidadLineas()", () => {
   it("Debe retornar el puntaje de 20, dado que las lineas aniadidas en el commit son 10", () => {
       let metrica = new Metrica(1, "Commit inicializado automaticamente");
