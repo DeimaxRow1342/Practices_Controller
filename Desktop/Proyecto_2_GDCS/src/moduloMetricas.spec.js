@@ -233,3 +233,47 @@ describe('prueba para la funcion formatearMetrica()', () => {
         expect(mockMetrica.getTipo).toHaveBeenCalled();
     });
 });
+
+
+describe('pruebas para la funcion eliminarMetrica()', () => {
+    let moduloMetricas;
+
+    beforeEach(() => {
+        moduloMetricas = new ModuloMetricas();
+    });
+
+    test('la funcion elimina la métrica correctamente si el numeroCommit existe', () => {
+        moduloMetricas.arregloMetrica = [
+            { numeroCommit: 1 },
+            { numeroCommit: 2 },
+            { numeroCommit: 3 }
+        ];
+
+        moduloMetricas.eliminarMetricaCommit(2);
+        expect(moduloMetricas.arregloMetrica).toEqual([
+            { numeroCommit: 1 },
+            { numeroCommit: 3 }
+        ]);
+    });
+
+    test('la funcion no cambia el arreglo si el numeroCommit no existe', () => {
+
+        moduloMetricas.arregloMetrica = [
+            { numeroCommit: 1 },
+            { numeroCommit: 2 }
+        ];
+
+        moduloMetricas.eliminarMetricaCommit(5);
+        expect(moduloMetricas.arregloMetrica).toEqual([
+            { numeroCommit: 1 },
+            { numeroCommit: 2 }
+        ]);
+    });
+
+    test('la funcion no falla si el arreglo está vacío', () => {
+        
+        moduloMetricas.arregloMetrica = [];
+        moduloMetricas.eliminarMetricaCommit(1);
+        expect(moduloMetricas.arregloMetrica).toEqual([]);
+    });
+});
