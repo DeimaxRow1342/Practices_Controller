@@ -140,7 +140,7 @@ describe('prueba para la funcion actualizarMetricaExistente() ', () => {
     });
 });
 
-describe('prueba para agregarNuevaMetric', () => {
+describe('prueba para agregarNuevaMetrica', () => {
     let moduloMetricas;
 
     beforeEach(() => {
@@ -159,3 +159,34 @@ describe('prueba para agregarNuevaMetric', () => {
         expect(metricaCreada.tipo).toBe('Nuevo Tipo');
     });
 });
+
+
+describe('prueba para la funcion desplegarMetrica()', () => {
+    let moduloMetricas;
+
+    beforeEach(() => {
+        moduloMetricas = new ModuloMetricas();
+
+        moduloMetricas.arregloMetrica = [
+            { numeroCommit: 1, explicacion: 'Explicación 1' },
+            { numeroCommit: 2, explicacion: 'Explicación 2' }
+        ];
+
+        // Mockeamos la función formatearMetrica para controlar su comportamiento
+        jest.spyOn(moduloMetricas, 'formatearMetrica').mockImplementation(metrica => ({
+            numeroCommit: metrica.numeroCommit,
+            descripcion: `Formateado: ${metrica.explicacion}`
+        }));
+    });
+
+    test('la funcion devuelve las métricas formateadas', () => {
+     
+        const resultado = moduloMetricas.desplegarMetrica();
+        expect(moduloMetricas.formatearMetrica).toHaveBeenCalledTimes(2);
+        expect(resultado).toEqual([
+            { numeroCommit: 1, descripcion: 'Formateado: Explicación 1' },
+            { numeroCommit: 2, descripcion: 'Formateado: Explicación 2' }
+        ]);
+    });
+});
+
