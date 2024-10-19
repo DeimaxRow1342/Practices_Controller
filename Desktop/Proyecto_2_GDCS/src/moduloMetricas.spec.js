@@ -139,3 +139,23 @@ describe('prueba para la funcion actualizarMetricaExistente() ', () => {
         expect(metrica.frecuencia).toBe(4);
     });
 });
+
+describe('prueba para agregarNuevaMetric', () => {
+    let moduloMetricas;
+
+    beforeEach(() => {
+        moduloMetricas = new ModuloMetricas();  
+    });
+
+    test('la funcion agrega una nueva métrica correctamente', () => {
+        
+        moduloMetricas.agregarNuevaMetrica(1, 'Nueva Explicación', 'Pruebas Nuevas', 85, 150, 'Media', 'Nuevo Tipo', 4);
+
+        const metricaCreada = moduloMetricas.arregloMetrica[0];
+        expect(metricaCreada.cargarMetricas).toHaveBeenCalledWith('Pruebas Nuevas', 85, 150, 'Media', 4);
+        expect(moduloMetricas.arregloMetrica.length).toBe(1);
+        expect(metricaCreada.numeroCommit).toBe(1);
+        expect(metricaCreada.explicacion).toBe('Nueva Explicación');
+        expect(metricaCreada.tipo).toBe('Nuevo Tipo');
+    });
+});
