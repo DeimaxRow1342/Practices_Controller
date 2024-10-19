@@ -100,3 +100,42 @@ describe('pruebas para buscarMetricaPorCommit()', () => {
     });
 });
 
+
+describe('prueba para la funcion actualizarMetricaExistente() ', () => {
+    let moduloMetricas;
+    let metrica;
+
+    beforeEach(() => {
+        moduloMetricas = new ModuloMetricas();
+        metrica = {
+            explicacion: 'Explicación antigua',
+            pruebas: 'Pruebas antiguas',
+            cobertura: 75,
+            cantidadLineas: 100,
+            complejidad: 'Alta',
+            tipo: 'Tipo Original',
+            frecuencia: 2
+        };
+    });
+
+    test('la funcion actualiza correctamente una métrica existente', () => {
+        moduloMetricas.actualizarMetricaExistente(
+            metrica,
+            'Nueva Explicación',
+            'Pruebas Nuevas',
+            85,
+            150,
+            'Baja',
+            'Tipo Modificado',
+            4
+        );
+
+        expect(metrica.explicacion).toBe('Nueva Explicación');
+        expect(metrica.pruebas).toBe('Pruebas Nuevas');
+        expect(metrica.cobertura).toBe(85);
+        expect(metrica.cantidadLineas).toBe(150);
+        expect(metrica.complejidad).toBe('Baja');
+        expect(metrica.tipo).toBe('Tipo Modificado');
+        expect(metrica.frecuencia).toBe(4);
+    });
+});
