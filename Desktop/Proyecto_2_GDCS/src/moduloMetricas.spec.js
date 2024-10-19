@@ -277,3 +277,40 @@ describe('pruebas para la funcion eliminarMetrica()', () => {
         expect(moduloMetricas.arregloMetrica).toEqual([]);
     });
 });
+
+
+describe('pruebas para la funcion calcularPuntaje()', () => {
+    let moduloMetricas;
+    let mockMetrica;
+
+    beforeEach(() => {
+        moduloMetricas = new ModuloMetricas();
+
+        mockMetrica = {
+            numeroCommit: 1,
+            cobertura: 80,
+            calcularPuntajePorCobertura: jest.fn(() => 20)
+        };
+
+        jest.spyOn(moduloMetricas, 'buscarMetricaPorCommit').mockImplementation(numeroCommit => {
+            if (numeroCommit === 1) {
+                return mockMetrica;
+            } else {
+                return undefined;
+            }
+        });
+    });
+
+    test('la funcion devuelve el puntaje correcto si la métrica existe', () => {
+        
+        const resultado = moduloMetricas.calcularPuntaje(1);
+        expect(resultado).toBe(20);
+        expect(mockMetrica.calcularPuntajePorCobertura).toHaveBeenCalledWith(80);
+    });
+
+    test('la funcion devuelve undefined si la métrica no existe', () => {
+        
+        const resultado = moduloMetricas.calcularPuntaje(5);
+        expect(resultado).toBeUndefined();
+    });
+});
