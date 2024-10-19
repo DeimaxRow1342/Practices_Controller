@@ -190,3 +190,46 @@ describe('prueba para la funcion desplegarMetrica()', () => {
     });
 });
 
+
+describe('prueba para la funcion formatearMetrica()', () => {
+    let moduloMetricas;
+    let mockMetrica;
+
+    beforeEach(() => {
+        moduloMetricas = new ModuloMetricas();
+        // Mock 
+        mockMetrica = {
+            getNumeroCommit: jest.fn(() => 1),
+            pruebas: 'Pruebas',
+            cantidadLineas: 100,
+            cobertura: 85,
+            complejidad: 'Media',
+            frecuencia: 3,
+            getPuntaje: jest.fn(() => 95),
+            getExplicacion: jest.fn(() => 'Explicación'),
+            getTipo: jest.fn(() => 'Tipo1')
+        };
+    });
+
+    test('la funcion devuelve la métrica formateada correctamente', () => {
+    
+        const resultado = moduloMetricas.formatearMetrica(mockMetrica);
+
+        expect(resultado).toEqual({
+            numeroCommit: 1,
+            pruebas: 'Pruebas',
+            cantidadLineas: 100,
+            cobertura: 85,
+            complejidad: 'Media',
+            frecuencia: 3,
+            puntaje: 95,
+            explicacion: 'Explicación',
+            tipo: 'Tipo1'
+        });
+
+        expect(mockMetrica.getNumeroCommit).toHaveBeenCalled();
+        expect(mockMetrica.getPuntaje).toHaveBeenCalled();
+        expect(mockMetrica.getExplicacion).toHaveBeenCalled();
+        expect(mockMetrica.getTipo).toHaveBeenCalled();
+    });
+});
