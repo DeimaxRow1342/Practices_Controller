@@ -62,3 +62,41 @@ describe('Pruebas para anadirMetricaCommit()', () => {
 });
 
 
+describe('pruebas para buscarMetricaPorCommit()', () => {
+    let moduloMetricas;
+
+    beforeEach(() => {
+        moduloMetricas = new ModuloMetricas();
+    });
+
+    test('la funcion encuentra la métrica si ya existe', () => {
+        moduloMetricas.arregloMetrica = [
+            { numeroCommit: 1, explicacion: 'Explicación 1' },
+            { numeroCommit: 2, explicacion: 'Explicación 2' },
+            { numeroCommit: 3, explicacion: 'Explicación 3' }
+        ];
+
+        const resultado = moduloMetricas.buscarMetricaPorCommit(2);
+        expect(resultado).toEqual({ numeroCommit: 2, explicacion: 'Explicación 2' });
+    });
+
+    test('la funcion devuelve undefined si el commit no existe', () => {
+        moduloMetricas.arregloMetrica = [
+            { numeroCommit: 1, explicacion: 'Explicación 1' },
+            { numeroCommit: 2, explicacion: 'Explicación 2' },
+            { numeroCommit: 3, explicacion: 'Explicación 3' }
+        ];
+
+        const resultado = moduloMetricas.buscarMetricaPorCommit(5);
+        expect(resultado).toBeUndefined();
+    });
+
+    test('la funcion devuelve undefined si el arreglo está vacío', () => {
+        
+        moduloMetricas.arregloMetrica = [];
+
+        const resultado = moduloMetricas.buscarMetricaPorCommit(1);
+        expect(resultado).toBeUndefined();
+    });
+});
+
