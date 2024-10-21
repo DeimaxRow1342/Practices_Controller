@@ -1,5 +1,15 @@
 import Metrica from "./metrica.js";
 
+let metrica;
+
+beforeEach(() => {
+  metrica = new Metrica(1, "Commit inicializado automaticamente");
+});
+
+afterEach(() => {
+  metrica = null;
+});
+
 
 describe("Test para getNumeroCommit()", () => {
     it("Debe retornar el numero de commit con el que se inicializa", () => {
@@ -43,7 +53,6 @@ describe("Test para getTipo()", () => {
 
 describe("Tests para cargarMetricas()", () => {
   it("Debe registrar las metricas cargadas con la funcion en la variable metrica si es convencional", () => {
-    let metrica = new Metrica(1, "Commit inicializado automaticamente");
 
     metrica.cargarMetricas(100, 16, 80, "Bueno", 1);
     expect(metrica.pruebas).toEqual(100);
